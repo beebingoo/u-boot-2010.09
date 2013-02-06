@@ -80,6 +80,8 @@ void serial_setbrg (void)
 		divisor = 3124;
 #elif CONFIG_S3C44B0_CLOCK_SPEED==75
 		divisor = 3905;
+#elif CONFIG_S3C44B0_CLOCK_SPEED==64
+		divisor = 3264;
 #else
 # error CONFIG_S3C44B0_CLOCK_SPEED undefined
 #endif
@@ -90,6 +92,8 @@ void serial_setbrg (void)
 		divisor = 390;
 #elif CONFIG_S3C44B0_CLOCK_SPEED==75
 		divisor = 487;
+#elif CONFIG_S3C44B0_CLOCK_SPEED==64
+		divisor = 408;
 #else
 # error CONFIG_S3C44B0_CLOCK_SPEED undefined
 #endif
@@ -100,6 +104,8 @@ void serial_setbrg (void)
 		divisor = 194;
 #elif CONFIG_S3C44B0_CLOCK_SPEED==75
 		divisor = 243;
+#elif CONFIG_S3C44B0_CLOCK_SPEED==64
+		divisor = 204;
 #else
 # error CONFIG_S3C44B0_CLOCK_SPEED undefined
 #endif
@@ -110,6 +116,8 @@ void serial_setbrg (void)
 		divisor = 97;
 #elif CONFIG_S3C44B0_CLOCK_SPEED==75
 		divisor = 121;
+#elif CONFIG_S3C44B0_CLOCK_SPEED==64
+		divisor = 102;
 #else
 # error CONFIG_S3C44B0_CLOCK_SPEED undefined
 #endif	/* break; */
@@ -119,6 +127,8 @@ void serial_setbrg (void)
 		divisor = 64;
 #elif CONFIG_S3C44B0_CLOCK_SPEED==75
 		divisor = 80;
+#elif CONFIG_S3C44B0_CLOCK_SPEED==64
+		divisor = 68;
 #else
 # error CONFIG_S3C44B0_CLOCK_SPEED undefined
 #endif	/* break; */
@@ -128,6 +138,8 @@ void serial_setbrg (void)
 		divisor = 32;
 #elif CONFIG_S3C44B0_CLOCK_SPEED==75
 		divisor = 40;
+#elif CONFIG_S3C44B0_CLOCK_SPEED==64
+		divisor = 34;
 #else
 # error CONFIG_S3C44B0_CLOCK_SPEED undefined
 #endif	/* break; */
