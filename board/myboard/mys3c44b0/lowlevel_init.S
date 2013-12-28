@@ -45,13 +45,14 @@
  *
  */
 
-.equ    B0_Tacs,      0x0 /* 0clk */
-.equ    B0_Tcos,      0x0 /* 0clk */
-.equ    B0_Tacc,      0x4 /* 6clk */
-.equ    B0_Tcoh,      0x0 /* 0clk */
-.equ    B0_Tah,       0x0 /* 0clk */
-.equ    B0_Tacp,      0x0 /* 0clk */
+.equ    B0_Tacs,      0x3 /* 0clk */
+.equ    B0_Tcos,      0x3 /* 0clk */
+.equ    B0_Tacc,      0x7 /* 6clk */
+.equ    B0_Tcoh,      0x3 /* 0clk */
+.equ    B0_Tah,       0x3 /* 0clk */
+.equ    B0_Tacp,      0x1 /* 0clk */
 .equ    B0_PMC,       0x0 /* normal(1data) */
+
 /* Bank 1 parameter */
 .equ    B1_Tacs,      0x3 /* 4clk */
 .equ    B1_Tcos,      0x3 /* 4clk */
@@ -117,24 +118,24 @@
 
 /* Bank 6 parameter */
 .equ    B6_MT,        0x3 /* SDRAM */
-.equ    B6_Trcd,      0x0 /* 2clk */
-.equ    B6_SCAN,      0x0 /* 10bit */
+.equ    B6_Trcd,      0x1 /* 2clk */
+.equ    B6_SCAN,      0x1 /* 10bit */
 
 .equ    B7_MT,        0x3 /* SDRAM */
-.equ    B7_Trcd,      0x0 /* 2clk */
-.equ    B7_SCAN,      0x0 /* 10bit */
+/* .equ    B7_Trcd,      0x0 */ /* 2clk */
+/* .equ    B7_SCAN,      0x0 */ /* 10bit */
 
 
 /* REFRESH parameter */
 .equ    REFEN,        0x1 /* Refresh enable */
 .equ    TREFMD,       0x0 /* CBR(CAS before RAS)/Auto refresh */
 .equ    Trp,        0x0 /* 2clk */
-.equ    Trc,        0x3 /* 0x1=5clk 0x3=11clk*/
-.equ    Tchr,       0x0 /* 0x2=3clk 0x0=0clks  */
-.equ    REFCNT,       879
+.equ    Trc,        0x1 /* 0x1=5clk 0x3=11clk*/
+.equ    Tchr,       0x2 /* 0x2=3clk 0x0=0clks  */
+.equ    REFCNT,       1050
 
 MEMORY_CONFIG:
-  .long   0x12111900 /* Bank0 = OM[1:0] , Bank1-7 16bit, Bank2=Nowait,UB/LB*/
+  .long   0x01010001 /* Bank0 = OM[1:0] , Bank1-7 16bit, Bank2=Nowait,UB/LB*/
   .word ((B0_Tacs<<13)+(B0_Tcos<<11)+(B0_Tacc<<8)+(B0_Tcoh<<6)+(B0_Tah<<4)+(B0_Tacp<<2)+(B0_PMC)) /*GCS0*/
   .word ((B1_Tacs<<13)+(B1_Tcos<<11)+(B1_Tacc<<8)+(B1_Tcoh<<6)+(B1_Tah<<4)+(B1_Tacp<<2)+(B1_PMC)) /*GCS1*/
   .word ((B2_Tacs<<13)+(B2_Tcos<<11)+(B2_Tacc<<8)+(B2_Tcoh<<6)+(B2_Tah<<4)+(B2_Tacp<<2)+(B2_PMC)) /*GCS2*/
@@ -142,9 +143,9 @@ MEMORY_CONFIG:
   .word ((B4_Tacs<<13)+(B4_Tcos<<11)+(B4_Tacc<<8)+(B4_Tcoh<<6)+(B4_Tah<<4)+(B4_Tacp<<2)+(B4_PMC)) /*GCS4*/
   .word ((B5_Tacs<<13)+(B5_Tcos<<11)+(B5_Tacc<<8)+(B5_Tcoh<<6)+(B5_Tah<<4)+(B5_Tacp<<2)+(B5_PMC)) /*GCS5*/
   .word ((B6_MT<<15)+(B6_Trcd<<2)+(B6_SCAN))  /*GCS6*/
-  .word ((B7_MT<<15)+(B7_Trcd<<2)+(B7_SCAN))  /*GCS7*/
+  .word ((B7_MT<<15)+(B7_Tacs<<13)+(B7_Tcos<<11)+(B7_Tacc<<8)+(B7_Tcoh<<6)+(B7_Tah<<4)+(B7_Tacp<<2)+(B7_PMC))  /*GCS7*/
   .word ((REFEN<<23)+(TREFMD<<22)+(Trp<<20)+(Trc<<18)+(Tchr<<16)+REFCNT)  /*REFRESH RFEN=1, TREFMD=0, trp=3clk, trc=5clk, tchr=3clk,count=1019*/
-  .word 0x17      /*SCLK power down mode, BANKSIZE 16M/16M*/
+  .word 0x10      /*SCLK power down mode, BANKSIZE 16M/16M*/
   .word 0x20      /*MRSR6 CL=2clk*/
   .word 0x20      /*MRSR7*/
 

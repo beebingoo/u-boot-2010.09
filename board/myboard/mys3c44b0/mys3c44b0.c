@@ -43,72 +43,51 @@ int board_init (void)
 	PCONA = 0x3ff;
 
 	/* Port B */
-	PCONB = 0xff;
-	PDATB = 0xFFFF;
+	PCONB = 0x7cf;
 
 	/* Port C */
-	/*
-	PCONC = 0xff55ff15;
-	PDATC = 0x0;
-	PUPC = 0xffff;
-	*/
+	PCONC = 0x1f05ff54;
+	PDATC = 0xffff;
+	PUPC = 0x3000;	
 
 	/* Port D */
-	/*
 	PCOND = 0xaaaa;
-	PUPD = 0xff;
-	*/
+	PDATD = 0xff;
+	PUPD = 0x00;
 
 	/* Port E */
-	PCONE = 0x0001aaa9;
-	PDATE = 0x0;
-	PUPE = 0xff;
+	PCONE = 0x25569;
+	PDATE = 0x1ff;
+	PUPE = 0x6;
 
 	/* Port F */
-	PCONF = 0x124955;
-	PDATF  = 0xff; /* B2-eth_reset tied high level */
-	/*
-	PUPF = 0x1e3;
-	*/
+	PCONF = 0x2493ea;
+	PDATF  = 0x0; /* B2-eth_reset tied high level */
+	PUPF = 0x000;
 
 	/* Port G */
-	PUPG = 0x1;
-	PCONG = 0x3; /*PG0= EINT0= ETH_INT prepared for linux kernel*/
-
+	PUPG = 0xff;
+	PCONG = 0x00c0; /*PG0= EINT0= ETH_INT prepared for linux kernel*/
+/*
 	INTMSK = 0x03fffeff;
 	INTCON = 0x05;
 
+*/
     /*
 	Configure chip ethernet interrupt as High level
 	Port G EINT 0-7 EINT0 -> CHIP ETHERNET
     */
-	temp = EXTINT;
-	temp &= ~0x7;
-    temp |= 0x1; /*LEVEL_HIGH*/
-	EXTINT = temp;
+	EXTINT = 0x0 | (1 << 14);
 
     /*
 	Reset SMSC LAN91C96 chip
     */
-    temp= PCONF;
-    temp |= 0x00000040;
-    PCONF = temp;
 
 	/* Reset high */
-    temp = PDATF;
-    temp |= (1 << 3);
-    PDATF = temp;
 
     /* Short delay */
-    for (temp=0;temp<10;temp++)
-    {
-		/* NOP */
-    }
 
     /* Reset low */
-    temp = PDATF;
-    temp &= ~(1 << 3);
-    PDATF = temp;
 
 	/* arch number MACH_TYPE_MBA44B0 */
 	gd->bd->bi_arch_number = MACH_TYPE_S3C44B0;

@@ -35,13 +35,13 @@
  * (easy to change)
  */
 #define CONFIG_ARM7			1	/* This is a ARM7 CPU	*/
-#define CONFIG_B2			1	/* on an B2 Board      */
+#define CONFIG_MYS3C44B0	1	/* on an s3c44b0 Board      */
 #define CONFIG_ARM_THUMB	1	/* this is an ARM7TDMI */
 #undef  CONFIG_ARM7_REVD		/* disable ARM720 REV.D Workarounds */
 #define CONFIG_SYS_NO_CP15_CACHE
 #define CONFIG_ARCH_CPU_INIT
 
-#define CONFIG_S3C44B0_CLOCK_SPEED	75 /* we have a 75Mhz S3C44B0*/
+#define CONFIG_S3C44B0_CLOCK_SPEED	64 /* we have a 64Mhz S3C44B0*/
 
 
 #undef CONFIG_USE_IRQ			/* don't need them anymore */
@@ -58,8 +58,8 @@
 /*
  * Hardware drivers
  */
-#define CONFIG_LAN91C96
-#define CONFIG_LAN91C96_BASE		0x04000300 /* base address         */
+#define CONFIG_DRIVER_RTL8019 
+#define RTL8019_BASE				0x08000000	/* base address         */
 #define CONFIG_SMC_USE_32_BIT
 #undef  CONFIG_SHOW_ACTIVITY
 #define CONFIG_NET_RETRY_COUNT		10	   /* # of retries          */
@@ -122,7 +122,7 @@
 #define CONFIG_SYS_MEMTEST_START	0x0C400000	/* memtest works on	*/
 #define CONFIG_SYS_MEMTEST_END		0x0C800000	/* 4 ... 8 MB in DRAM	*/
 
-#define	CONFIG_SYS_LOAD_ADDR		0x0c700000	/* default load address	*/
+#define	CONFIG_SYS_LOAD_ADDR		0x0c100000	/* default load address	*/
 
 #define	CONFIG_SYS_HZ				1000		/* 1 kHz */
 
@@ -144,8 +144,8 @@
  * Physical Memory Map
  */
 #define CONFIG_NR_DRAM_BANKS	1	   /* we have 1 banks of DRAM */
-#define PHYS_SDRAM_1		0xc0000000 /* SDRAM Bank #1 */
-#define PHYS_SDRAM_1_SIZE	0x01000000 /* 16 MB */
+#define PHYS_SDRAM_1		0x0c000000 /* SDRAM Bank #1 */
+#define PHYS_SDRAM_1_SIZE	0x02000000 /* 32 MB */
 
 #define PHYS_FLASH_1		0x00000000 /* Flash Bank #1 */
 #define PHYS_FLASH_SIZE		0x00400000 /* 4 MB */
@@ -180,7 +180,7 @@
 /*-----------------------------------------------------------------------
  * Environment Variable setup
  */
-#define CONFIG_ENV_IS_IN_EEPROM	1	/* use EEPROM for environment vars */
+#define CONFIG_ENV_IS_IN_FLASH	1	/* use flash for environment vars */
 #define CONFIG_ENV_OFFSET		0x0	/* environment starts at the beginning of the EEPROM */
 
 /*-----------------------------------------------------------------------
