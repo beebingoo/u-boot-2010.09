@@ -119,7 +119,8 @@
 /* Bank 6 parameter */
 .equ    B6_MT,        0x3 /* SDRAM */
 .equ    B6_Trcd,      0x1 /* 2clk */
-.equ    B6_SCAN,      0x1 /* 10bit */
+.equ    B6_SCAN,      0x0 /* 8bit */
+/* .equ    B6_SCAN,      0x1 */ /* 10bit */
 
 .equ    B7_MT,        0x3 /* SDRAM */
 /* .equ    B7_Trcd,      0x0 */ /* 2clk */
