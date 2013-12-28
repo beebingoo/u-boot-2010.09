@@ -340,6 +340,12 @@ static ulong flash_get_size (vu_long *addr, flash_info_t *info)
 		info->size = 0x00200000;
 		break;				/* => 2 MB		*/
 
+	case (CONFIG_SYS_FLASH_WORD_SIZE)SST_ID_xF1601:
+		info->flash_id += FLASH_SST1601;
+		info->sector_count = 32;
+		info->size = 0x00200000;
+		break;				/* => 2 MB		*/
+
 	default:
 		info->flash_id = FLASH_UNKNOWN;
 		return (0);			/* => no or unknown flash */
