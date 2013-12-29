@@ -51,7 +51,7 @@
  * Size of malloc() pool
  */
 #define CONFIG_SYS_MONITOR_LEN		(256 * 1024)	/* Reserve 256 kB for Monitor	*/
-#define CONFIG_ENV_SIZE		1024		/* 1024 bytes may be used for env vars*/
+#define CONFIG_ENV_SIZE		(64 * 1024)		/* 1024 bytes may be used for env vars*/
 #define CONFIG_SYS_MALLOC_LEN		(CONFIG_ENV_SIZE + 128*1024 )
 #define CONFIG_SYS_GBL_DATA_SIZE	128	/* size in bytes reserved for initial data */
 
@@ -145,10 +145,10 @@
  */
 #define CONFIG_NR_DRAM_BANKS	1	   /* we have 1 banks of DRAM */
 #define PHYS_SDRAM_1		0x0c000000 /* SDRAM Bank #1 */
-#define PHYS_SDRAM_1_SIZE	0x02000000 /* 32 MB */
+#define PHYS_SDRAM_1_SIZE	0x00800000 /* 8 MB */
 
 #define PHYS_FLASH_1		0x00000000 /* Flash Bank #1 */
-#define PHYS_FLASH_SIZE		0x00400000 /* 4 MB */
+#define PHYS_FLASH_SIZE		0x00100000 /* 1 MB */
 
 #define CONFIG_SYS_FLASH_BASE		PHYS_FLASH_1
 
@@ -181,7 +181,8 @@
  * Environment Variable setup
  */
 #define CONFIG_ENV_IS_IN_FLASH	1	/* use flash for environment vars */
-#define CONFIG_ENV_OFFSET		0x0	/* environment starts at the beginning of the EEPROM */
+#define CONFIG_ENV_ADDR         (PHYS_FLASH_1 + 0X40000)
+#define CONFIG_ENV_OFFSET		0x40000	/* environment starts at the beginning of the EEPROM */
 
 /*-----------------------------------------------------------------------
  * I2C EEPROM (STM24C02W6) for environment

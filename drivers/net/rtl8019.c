@@ -55,7 +55,7 @@ static void eth_reset (void)
 	udelay (2000);		/* wait for 2ms */
 }
 
-void rtl8019_get_enetaddr (uchar * addr)
+static void rtl8019_get_enetaddr (uchar * addr)
 {
 	unsigned char i;
 	unsigned char temp;
@@ -84,12 +84,12 @@ void rtl8019_get_enetaddr (uchar * addr)
 	put_reg (RTL8019_COMMAND, RTL8019_PAGE0);
 }
 
-void eth_halt (void)
+static void rtl8019_halt (struct eth_device *dev)
 {
 	put_reg (RTL8019_COMMAND, 0x01);
 }
 
-int eth_init (bd_t * bd)
+static int rtl8019_init (struct eth_device *dev, bd_t * bd)
 {
 	uchar enetaddr[6];
 	eth_reset ();
@@ -193,7 +193,7 @@ static unsigned char nic_to_pc (void)
 }
 
 /* Get a data block via Ethernet */
-extern int eth_rx (void)
+static int rtl8019_recv (struct eth_device *dev)
 {
 	unsigned char temp, current_point;
 
@@ -231,7 +231,7 @@ extern int eth_rx (void)
 }
 
 /* Send a data block via Ethernet. */
-extern int eth_send (volatile void *packet, int length)
+static int rtl8019_send (struct eth_device *dev, volatile void *packet, int length)
 {
 	volatile unsigned char *p;
 	unsigned int pn;
@@ -267,5 +267,29 @@ extern int eth_send (volatile void *packet, int length)
 	put_reg (RTL8019_TRANSMITBYTECOUNT1, ((pn >> 8 & 0xff)));
 	put_reg (RTL8019_COMMAND, RTL8019_TRANSMIT);
 
+	return 0;
+}
+
+int rtl8019_initialize(u8 dev_num, int base_addr)
+{
+	struct eth_device *dev;
+
+	dev = (struct eth_device*) malloc(sizeof(*dev));
+	if (!dev) {
+		return 0;
+	}
+	memset(dev, 0, sizeof(*dev));
+
+	dev->iobase = base_addr;
+
+	/* get_rom_mac(dev, dev->enetaddr); */
+
+	dev->init = rtl8019_init;
+	dev->halt = rtl8019_halt;
+	dev->send = rtl8019_send;
+	dev->recv = rtl8019_recv;
+	sprintf(dev->name, "RTL8109AS#%d", dev_num);
+
+	eth_register(dev);
 	return 0;
 }

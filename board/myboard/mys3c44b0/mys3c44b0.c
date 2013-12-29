@@ -113,6 +113,7 @@ int board_eth_init(bd_t *bis)
 #ifdef CONFIG_LAN91C96
 	rc = lan91c96_initialize(0, CONFIG_LAN91C96_BASE);
 #endif
+	rc = rtl8019_initialize(0, RTL8019_BASE);
 	return rc;
 }
 #endif
