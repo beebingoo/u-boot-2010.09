@@ -171,6 +171,17 @@ vector_copy_loop:
 	ble	vector_copy_loop
 #endif	/* CONFIG_SKIP_RELOCATE_UBOOT */
 
+	/* Init the bss segment */
+	ldr r0, = 0
+	ldr r1, _bss_start
+	ldr r2, _bss_end
+
+bss_init:
+	str r0, [r1]
+	add r1,r1,#4
+	cmp r1,r2
+	blt bss_init
+
 	/* Set up the stack						    */
 stack_setup:
 	ldr	r0, _TEXT_BASE		/* upper 128 KiB: relocated uboot   */
