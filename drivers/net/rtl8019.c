@@ -36,7 +36,7 @@
 
 static unsigned char get_reg (unsigned int regno)
 {
-	return (*(unsigned char *) regno);
+	return (*(volatile unsigned char *) regno);
 }
 
 static void put_reg (unsigned int regno, unsigned char val)
