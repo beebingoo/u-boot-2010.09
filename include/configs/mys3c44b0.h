@@ -30,6 +30,10 @@
 #ifndef __CONFIG_H
 #define __CONFIG_H
 
+// #define DEBUG               2
+#undef CONFIG_MTD_DEBUG
+#undef CONFIG_MTD_DEBUG_VERBOSE MTD_DEBUG_LEVEL3
+
 /*
  * High Level Configuration Options
  * (easy to change)
@@ -99,6 +103,7 @@
 #define CONFIG_CMD_I2C
 #define CONFIG_CMD_NET
 #define CONFIG_CMD_PING
+#define CONFIG_CMD_NAND
 
 #define CONFIG_NET_MULTI
 #define CONFIG_BOOTDELAY	5
@@ -185,6 +190,13 @@
 #define CONFIG_ENV_IS_IN_FLASH	1	/* use flash for environment vars */
 #define CONFIG_ENV_ADDR         (PHYS_FLASH_1 + 0X40000)
 #define CONFIG_ENV_OFFSET		0x40000	/* environment starts at the beginning of the EEPROM */
+
+/*-----------------------------------------------------------------------
+ * NAND FLASH (K9F5608UOD) for environment
+ */
+#define CONFIG_NAND_S3C44B0
+#define CONFIG_SYS_MAX_NAND_DEVICE  1
+#define CONFIG_SYS_NAND_BASE        0x02000000
 
 /*-----------------------------------------------------------------------
  * I2C EEPROM (STM24C02W6) for environment
