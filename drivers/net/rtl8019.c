@@ -128,7 +128,7 @@ static int rtl8019_init (struct eth_device *dev, bd_t * bd)
 	return 0;
 }
 
-static unsigned char nic_to_pc (void)
+static short nic_to_pc (void)
 {
 	unsigned char rec_head_status;
 	unsigned char next_packet_pointer;
@@ -161,8 +161,10 @@ static unsigned char nic_to_pc (void)
 	rxlen = (((rxlen << 8) & 0xff00) + packet_length0);
 	rxlen -= 4;
 
-	if (rxlen > PKTSIZE_ALIGN + PKTALIGN)
+	if (rxlen > PKTSIZE_ALIGN + PKTALIGN){
 		printf ("packet too big!\n");
+		return ((short) -2);
+	}
 
 	/*Receive the packet */
 	put_reg (RTL8019_REMOTESTARTADDRESS0, 0x04);
@@ -189,13 +191,14 @@ static unsigned char nic_to_pc (void)
 	current_point = get_reg (RTL8019_CURRENT);
 	put_reg (RTL8019_COMMAND, RTL8019_PAGE0);
 	put_reg (RTL8019_BOUNDARY, next_packet_pointer);
-	return current_point;
+	return ((short) current_point);
 }
 
 /* Get a data block via Ethernet */
 static int rtl8019_recv (struct eth_device *dev)
 {
 	unsigned char temp, current_point;
+	short ret_short;
 
 	put_reg (RTL8019_COMMAND, RTL8019_PAGE0);
 
@@ -210,7 +213,10 @@ static int rtl8019_recv (struct eth_device *dev)
 			put_reg (RTL8019_REMOTEBYTECOUNT1, 0);
 			put_reg (RTL8019_TRANSMITCONFIGURATION, 2);
 			do {
-				current_point = nic_to_pc ();
+				ret_short = nic_to_pc ();
+				if (ret_short == -2)
+					return ((int) -2);
+				current_point = (unsigned char) ret_short;
 			} while (get_reg (RTL8019_BOUNDARY) != current_point);
 
 			put_reg (RTL8019_TRANSMITCONFIGURATION, 0xe0);
@@ -220,7 +226,10 @@ static int rtl8019_recv (struct eth_device *dev)
 			/*packet received */
 			do {
 				put_reg (RTL8019_INTERRUPTSTATUS, 0x01);
-				current_point = nic_to_pc ();
+				ret_short = nic_to_pc ();
+				if (ret_short == -2)
+					return ((int) -2);
+				current_point = (unsigned char) ret_short;
 			} while (get_reg (RTL8019_BOUNDARY) != current_point);
 		}
 

@@ -105,14 +105,17 @@
 #define CONFIG_CMD_PING
 #define CONFIG_CMD_NAND
 
+#define CONFIG_CMDLINE_EDITING
+#define CONFIG_AUTO_COMPLETE
 #define CONFIG_NET_MULTI
 #define CONFIG_BOOTDELAY	5
 #define CONFIG_ETHADDR	00:50:c2:1e:af:fb
 #define CONFIG_BOOTARGS  "setenv bootargs root=/dev/ram ip=192.168.0.70:::::eth0:off \
 							 ether=25,0,0,0,eth0 ethaddr=00:50:c2:1e:af:fb"
-#define CONFIG_NETMASK  255.255.0.0
-#define CONFIG_IPADDR   192.168.0.70
-#define CONFIG_SERVERIP	192.168.0.23
+#define CONFIG_NETMASK  255.255.255.0
+#define CONFIG_IPADDR   192.168.1.122
+#define CONFIG_SERVERIP	192.168.1.103
+#define CONFIG_GATEWAYIP 192.168.1.1
 #define CONFIG_BOOTFILE	"B2-rootfs/usr/B2-zImage.u-boot"
 #define CONFIG_BOOTCOMMAND	"bootm 20000 f0000"
 
@@ -152,7 +155,7 @@
  */
 #define CONFIG_NR_DRAM_BANKS	1	   /* we have 1 banks of DRAM */
 #define PHYS_SDRAM_1		0x0c000000 /* SDRAM Bank #1 */
-#define PHYS_SDRAM_1_SIZE	0x00800000 /* 8 MB */
+#define PHYS_SDRAM_1_SIZE	0x01000000 /* 16 MB */
 
 #define PHYS_FLASH_1		0x00000000 /* Flash Bank #1 */
 #define PHYS_FLASH_SIZE		0x00100000 /* 1 MB */
